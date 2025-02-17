@@ -15,7 +15,7 @@ export const ImageCard = ({ image }) => {
 					aspectRatio: `${image.width} / ${image.height}`,
 					backgroundColor: `${image.color}`,
 				}}
-				className="relative"
+				className="relative md:cursor-zoom-in"
 			>
 				<img
 					src={image.urls.regular}
