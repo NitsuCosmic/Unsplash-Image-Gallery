@@ -4,3 +4,7 @@
 @theme {
 	--font-roboto: "Roboto", system-ui, serif;
 }
+
+@theme {
+	--text-responsive-title: clamp(1.25rem, 2vw, 1.75rem);
+}
