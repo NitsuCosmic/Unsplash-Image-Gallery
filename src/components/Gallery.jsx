@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { ImageCard } from "./ImageCard";
 
 export const Gallery = ({ images }) => {
 	const [sections, setSections] = useState([[], [], []]);
@@ -21,11 +22,9 @@ export const Gallery = ({ images }) => {
 	return (
 		<section className="grid md:grid-cols-3 gap-4">
 			{sections.map((section, index) => (
-				<div key={index} className="flex flex-col gap-4">
+				<div key={index} className="grid gap-4 h-fit pb-4">
 					{section.map((image) => (
-						<div key={image.id} className="h-min">
-							<img src={image.urls.regular} alt={image.alt_description} />
-						</div>
+						<ImageCard key={image.id} image={image} />
 					))}
 				</div>
 			))}

@@ -42,7 +42,7 @@ function App() {
 				<Navbar searchTerm={searchTerm} onSearch={handleSearch} />
 			</header>
 			<main>
-				<section className="max-w-screen-2xl mx-auto p-2">
+				<section className="max-w-screen-2xl mx-auto py-2 md:px-2">
 					{isLoading && <Spinner />}
 					{!isLoading && searchResults && (
 						<SearchResults
