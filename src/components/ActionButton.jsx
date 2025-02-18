@@ -3,10 +3,23 @@ const baseStyles =
 const mobileStyles =
 	"text-neutral-500 bg-white py-2 px-4 rounded-md border-1 border-neutral-200 cursor-pointer hover:bg-neutral-200 transition-colors";
 
-export const ImageCardButton = ({ children, isMobile = false }) => {
+export const ActionButton = ({
+	children,
+	isMobile = false,
+	onClick = null,
+	disabled = false,
+}) => {
+	const handleClick = () => {
+		if (disabled) return;
+		onClick();
+	};
+
 	return (
 		<button
-			className={`flex items-center ${isMobile ? mobileStyles : baseStyles}`}
+			onClick={handleClick}
+			className={`flex items-center w-fit ${
+				isMobile ? mobileStyles : baseStyles
+			}`}
 		>
 			{children}
 		</button>

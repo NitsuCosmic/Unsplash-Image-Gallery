@@ -1,7 +1,7 @@
 import { faArrowDown, faHeart } from "@fortawesome/free-solid-svg-icons";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { ImageCardButton } from "./ImageCardButton";
+import { ActionButton } from "./ActionButton";
 import { ImageUserProfile } from "./ImageUserProfile";
 
 export const ImageCard = ({ image }) => {
@@ -25,33 +25,33 @@ export const ImageCard = ({ image }) => {
 				/>
 				<div className="hidden md:flex flex-col justify-between absolute top-0 left-0 w-full h-full p-4 bg-black/30 opacity-0 group-hover:opacity-100 transition-opacity">
 					<div className="flex justify-end items-center gap-2">
-						<ImageCardButton>
+						<ActionButton>
 							<FontAwesomeIcon icon={faHeart} />
-						</ImageCardButton>
-						<ImageCardButton>
+						</ActionButton>
+						<ActionButton>
 							<FontAwesomeIcon icon={faPlus} />
-						</ImageCardButton>
+						</ActionButton>
 					</div>
 					<div className="flex justify-between items-end h-fit">
 						<ImageUserProfile user={image.user} />
-						<ImageCardButton>
+						<ActionButton>
 							<FontAwesomeIcon icon={faArrowDown} />
-						</ImageCardButton>
+						</ActionButton>
 					</div>
 				</div>
 			</div>
 			<div className="flex justify-between items-center px-2 md:hidden">
 				<div className="flex gap-2">
-					<ImageCardButton isMobile={true}>
+					<ActionButton isMobile={true}>
 						<FontAwesomeIcon icon={faHeart} />
-					</ImageCardButton>
-					<ImageCardButton isMobile={true}>
+					</ActionButton>
+					<ActionButton isMobile={true}>
 						<FontAwesomeIcon icon={faPlus} />
-					</ImageCardButton>
+					</ActionButton>
 				</div>
-				<ImageCardButton isMobile={true}>
+				<ActionButton isMobile={true}>
 					<FontAwesomeIcon icon={faArrowDown} />
-				</ImageCardButton>
+				</ActionButton>
 			</div>
 		</div>
 	);
