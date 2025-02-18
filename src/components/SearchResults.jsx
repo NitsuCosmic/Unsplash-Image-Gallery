@@ -34,7 +34,6 @@ export const SearchResults = ({ searchTerm }) => {
 		}
 	}, [searchTerm, page]);
 
-	// Manejo de cambios en searchTerm
 	useEffect(() => {
 		if (searchTerm !== prevSearchTerm) {
 			setPage(1);
@@ -43,7 +42,6 @@ export const SearchResults = ({ searchTerm }) => {
 		}
 	}, [searchTerm, prevSearchTerm]);
 
-	// Llamada a la API cuando cambian searchTerm o page
 	useEffect(() => {
 		searchImages();
 	}, [searchImages]);
@@ -58,8 +56,8 @@ export const SearchResults = ({ searchTerm }) => {
 				<div className="flex justify-center w-full">
 					<ActionButton
 						isMobile={true}
-						onClick={() => setPage((prevPage) => prevPage + 1)}
-						disabled={isLoading}
+						clickFunction={() => setPage((prevPage) => prevPage + 1)}
+						isDisabled={isLoading}
 					>
 						Load More
 					</ActionButton>

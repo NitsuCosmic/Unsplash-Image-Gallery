@@ -3,20 +3,31 @@ import { ImageCard } from "./ImageCard";
 
 export const Gallery = ({ images }) => {
 	const [sections, setSections] = useState([[], [], []]);
+	const [prevImages, setPrevImages] = useState(new Set()); // Track seen images
 
 	useEffect(() => {
 		if (!images || images.length === 0) {
 			setSections([[], [], []]); // Reset if no images
+			setPrevImages(new Set()); // Reset tracking
 			return;
 		}
 
-		const sectionSize = Math.ceil(images.length / 3); // Determine section size
-		const newSections = [
-			images.slice(0, sectionSize),
-			images.slice(sectionSize, 2 * sectionSize),
-			images.slice(2 * sectionSize),
-		];
+		const newImages = images.filter((image) => !prevImages.has(image.id)); // Remove duplicates
+		const newSections = [[], [], []]; // Start fresh
+
+		// Add previous images back to their original sections
+		sections.forEach((section, i) => {
+			newSections[i] = [...section];
+		});
+
+		// Distribute only new images
+		newImages.forEach((image, index) => {
+			newSections[index % 3].push(image);
+		});
+
+		// Update state
 		setSections(newSections);
+		setPrevImages(new Set(images.map((img) => img.id))); // Store seen image IDs
 	}, [images]);
 
 	return (

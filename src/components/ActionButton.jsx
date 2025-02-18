@@ -6,12 +6,12 @@ const mobileStyles =
 export const ActionButton = ({
 	children,
 	isMobile = false,
-	onClick = null,
-	disabled = false,
+	clickFunction = null,
+	isDisabled = false,
 }) => {
 	const handleClick = () => {
-		if (disabled) return;
-		onClick();
+		if (isDisabled) return;
+		clickFunction();
 	};
 
 	return (
@@ -20,6 +20,7 @@ export const ActionButton = ({
 			className={`flex items-center w-fit ${
 				isMobile ? mobileStyles : baseStyles
 			}`}
+			disabled={isDisabled}
 		>
 			{children}
 		</button>
