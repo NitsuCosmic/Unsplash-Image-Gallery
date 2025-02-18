@@ -16,7 +16,7 @@ function App() {
 				<Navbar searchTerm={searchTerm} onSearch={handleSearch} />
 			</header>
 			<main>
-				<section className="max-w-screen-2xl mx-auto py-2 md:px-2">
+				<section className="max-w-screen-2xl mx-auto py-8 md:px-2">
 					<Home />
 					{searchTerm && <SearchResults searchTerm={searchTerm} />}
 				</section>
