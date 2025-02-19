@@ -50,14 +50,16 @@ export const SearchResults = () => {
 		<div className="flex flex-col gap-4">
 			{error && <p className="text-red-500 text-center">{error}</p>}
 
-			{searchResults && (
+			{!isLoading && searchResults && searchResults.length > 0 ? (
 				<>
 					<h1 className="font-roboto font-bold text-responsive-title px-2">
 						Results for &quot;{query.trim()}&quot;
 					</h1>
 					<Gallery images={searchResults} />
 				</>
-			)}
+			) : !isLoading && searchResults && searchResults.length === 0 ? (
+				<h1>No results found</h1>
+			) : null}
 
 			{searchResults && !isLoading && (
 				<div className="flex justify-center w-full">
