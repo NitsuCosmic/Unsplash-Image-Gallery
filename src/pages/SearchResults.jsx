@@ -48,13 +48,16 @@ export const SearchResults = () => {
 
 	return (
 		<div className="flex flex-col gap-4">
-			<h1 className="font-roboto font-bold text-responsive-title px-2">
-				Results for &quot;{query.trim()}&quot;
-			</h1>
-
 			{error && <p className="text-red-500 text-center">{error}</p>}
 
-			{searchResults && <Gallery images={searchResults} />}
+			{searchResults && (
+				<>
+					<h1 className="font-roboto font-bold text-responsive-title px-2">
+						Results for &quot;{query.trim()}&quot;
+					</h1>
+					<Gallery images={searchResults} />
+				</>
+			)}
 
 			{searchResults && !isLoading && (
 				<div className="flex justify-center w-full">
@@ -68,7 +71,6 @@ export const SearchResults = () => {
 				</div>
 			)}
 
-			{/* Show loading spinner */}
 			{isLoading && <Spinner />}
 		</div>
 	);

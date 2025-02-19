@@ -31,9 +31,9 @@ export const Gallery = ({ images }) => {
 	}, [images]);
 
 	return (
-		<section className="grid md:grid-cols-3 gap-4">
+		<section className="grid md:grid-cols-3 gap-5">
 			{sections.map((section, index) => (
-				<div key={index} className="grid gap-4 h-fit pb-4">
+				<div key={index} className="grid gap-5 h-fit pb-4">
 					{section.map((image) => (
 						<ImageCard key={image.id} image={image} />
 					))}
