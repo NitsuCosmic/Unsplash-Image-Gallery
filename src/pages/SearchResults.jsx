@@ -1,46 +1,46 @@
 import { useCallback, useEffect, useState } from "react";
+import { useParams } from "react-router";
+import { ActionButton } from "../components/ActionButton";
+import { Gallery } from "../components/Gallery";
+import { Spinner } from "../components/Spinner";
 import { BASE_URL, options } from "../services/api";
-import { ActionButton } from "./ActionButton";
-import { Gallery } from "./Gallery";
-import { Spinner } from "./Spinner";
 
-export const SearchResults = ({ searchTerm }) => {
-	const [prevSearchTerm, setPrevSearchTerm] = useState(searchTerm);
+export const SearchResults = () => {
+	const { query } = useParams();
 	const [searchResults, setSearchResults] = useState(null);
 	const [page, setPage] = useState(1);
 	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState(null);
 
 	const searchImages = useCallback(async () => {
-		if (!searchTerm.trim()) return;
+		if (!query.trim()) return;
+
 		setIsLoading(true);
+		setError(null);
 
 		try {
 			const response = await fetch(
-				`${BASE_URL}search/photos?query=${encodeURI(
-					searchTerm
+				`${BASE_URL}search/photos?query=${encodeURIComponent(
+					query
 				)}&page=${page}&per_page=30`,
 				options
 			);
 			const data = await response.json();
-			const { results } = data;
 
 			setSearchResults((prevResults) =>
-				page === 1 ? results : [...(prevResults || []), ...results]
+				page === 1 ? data.results : [...(prevResults || []), ...data.results]
 			);
 		} catch (error) {
 			console.error(`Error fetching photos: ${error}`);
 		} finally {
 			setIsLoading(false);
 		}
-	}, [searchTerm, page]);
+	}, [query, page]);
 
 	useEffect(() => {
-		if (searchTerm !== prevSearchTerm) {
-			setPage(1);
-			setSearchResults(null);
-			setPrevSearchTerm(searchTerm);
-		}
-	}, [searchTerm, prevSearchTerm]);
+		setPage(1);
+		setSearchResults(null);
+	}, [query]);
 
 	useEffect(() => {
 		searchImages();
@@ -49,20 +49,26 @@ export const SearchResults = ({ searchTerm }) => {
 	return (
 		<div className="flex flex-col gap-4">
 			<h1 className="font-roboto font-bold text-responsive-title px-2">
-				Results for &quot;{searchTerm}&quot;
+				Results for &quot;{query.trim()}&quot;
 			</h1>
-			{searchResults ? <Gallery images={searchResults} /> : null}
-			{!isLoading && searchResults && (
+
+			{error && <p className="text-red-500 text-center">{error}</p>}
+
+			{searchResults && <Gallery images={searchResults} />}
+
+			{searchResults && !isLoading && (
 				<div className="flex justify-center w-full">
 					<ActionButton
 						isMobile={true}
-						clickFunction={() => setPage((prevPage) => prevPage + 1)}
+						clickFunction={() => setPage((prev) => prev + 1)}
 						isDisabled={isLoading}
 					>
 						Load More
 					</ActionButton>
 				</div>
 			)}
+
+			{/* Show loading spinner */}
 			{isLoading && <Spinner />}
 		</div>
 	);

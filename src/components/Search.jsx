@@ -1,18 +1,33 @@
 import { faSearch } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useLocation, useNavigate } from "react-router";
 
-export const Search = ({ searchTerm, onSearch }) => {
-	const [localSearchTerm, setLocalSearchTerm] = useState(searchTerm);
+export const Search = () => {
+	const [searchTerm, setSearchTerm] = useState("");
+	const [prevSearchTerm, setPrevSearchTerm] = useState("");
+	const navigate = useNavigate();
+	const location = useLocation();
+
+	useEffect(() => {
+		// Reset only if the user leaves the search results page
+		if (!location.pathname.startsWith("/search")) {
+			setSearchTerm("");
+			setPrevSearchTerm("");
+		}
+	}, [location.pathname]);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		if (!localSearchTerm.trim()) return;
-		onSearch(localSearchTerm);
+		const trimmedTerm = searchTerm.trim();
+		if (!trimmedTerm || trimmedTerm === prevSearchTerm) return;
+		if (searchTerm.trim() === prevSearchTerm.trim()) return;
+		navigate(`/search/${encodeURI(searchTerm)}`);
+		setPrevSearchTerm(trimmedTerm);
 	};
 
 	const handleChange = (e) => {
-		setLocalSearchTerm(e.target.value);
+		setSearchTerm(e.target.value);
 	};
 
 	return (
@@ -30,7 +45,7 @@ export const Search = ({ searchTerm, onSearch }) => {
 					className="font-roboto h-full w-full py-3 outline-0 text-sm placeholder:text-sm"
 					placeholder="Search for images and illustrations"
 					onChange={handleChange}
-					value={localSearchTerm}
+					value={searchTerm}
 				/>
 			</div>
 		</form>

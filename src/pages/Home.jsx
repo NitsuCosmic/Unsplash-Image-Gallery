@@ -1,7 +1,7 @@
 import { useFetchImages } from "../hooks/useFetchImages";
-import { ActionButton } from "./ActionButton";
-import { Gallery } from "./Gallery";
-import { Spinner } from "./Spinner";
+import { ActionButton } from "../components/ActionButton";
+import { Gallery } from "../components/Gallery";
+import { Spinner } from "../components/Spinner";
 
 export const Home = () => {
 	const { images, isLoading, setPage } = useFetchImages();

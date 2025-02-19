@@ -1,24 +1,15 @@
-import { useState } from "react";
-import { Home } from "./components/Home";
+import { Outlet } from "react-router";
 import { Navbar } from "./components/Navbar";
-import { SearchResults } from "./components/SearchResults";
 
 function App() {
-	const [searchTerm, setSearchTerm] = useState("");
-
-	const handleSearch = async (term) => {
-		setSearchTerm(term);
-	};
-
 	return (
 		<>
 			<header>
-				<Navbar searchTerm={searchTerm} onSearch={handleSearch} />
+				<Navbar />
 			</header>
 			<main>
 				<section className="max-w-screen-2xl mx-auto py-8 md:px-2">
-					<Home />
-					{searchTerm && <SearchResults searchTerm={searchTerm} />}
+					<Outlet />
 				</section>
 			</main>
 		</>
